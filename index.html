@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harborlight Digital | Custom Websites for San Antonio &amp; Austin Businesses</title>
+  <meta name="description" content="Harborlight Digital designs custom websites for small businesses in San Antonio and Austin. Built to be found, designed around your business, supported after launch.">
+  <link rel="canonical" href="https://harborlightdigital.co/">
+  <meta name="theme-color" content="#a4c5d8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1a3141" media="(prefers-color-scheme: dark)">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Harborlight Digital">
+  <meta property="og:title" content="Harborlight Digital | Custom Site Design, Built for Your Business">
+  <meta property="og:description" content="Custom websites for small businesses in San Antonio and Austin.">
+  <meta property="og:url" content="https://harborlightdigital.co/">
+  <meta property="og:image" content="https://harborlightdigital.co/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <link rel="preload" href="italiana-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="quicksand-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+
+  <script>
+    /* Set the theme before the page paints: saved choice first, then the device setting. */
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('hl-theme'); } catch (e) {}
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Harborlight Digital",
+    "url": "https://harborlightdigital.co/",
+    "logo": "https://harborlightdigital.co/logo-mark.svg",
+    "description": "Custom website design for small businesses in San Antonio and Austin.",
+    "email": "hello@harborlightdigital.co",
+    "areaServed": [
+      { "@type": "City", "name": "San Antonio" },
+      { "@type": "City", "name": "Austin" }
+    ],
+    "priceRange": "$1,000 - $2,200+"
+  }
+  </script>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><symbol id="hl-mark" viewBox="398.8 320.9 702.5 858.2"><g fill="currentColor"><path d="M 969.33 636.99 L 750 322.93 L 400.78 822.99 L 552.95 977.31 C 554.68 979.18 556.42 980.95 558.16 982.61 L 750 1177.14 L 1099.22 822.99 L 969.86 637.76 L 970 637.61 C 969.78 637.4 969.55 637.2 969.33 636.99 Z M 938.27 617.61 C 925.53 612.8 911.34 610.46 896.07 610.77 C 853.04 611.64 781.75 633.88 684.93 733.73 C 675.87 724.56 656.38 707.1 629.16 694.95 C 599.5 681.72 555.81 673.04 505.84 697.64 L 750 348.01 Z M 486.63 726.86 C 531.2 694.5 576.93 688.32 622.54 708.48 C 647.9 719.7 666.32 736.36 674.45 744.58 C 621.29 798.49 561.79 827.01 497.5 829.39 C 461.68 830.73 433.98 823.12 421.25 818.74 L 486.01 726.02 Z M 562.35 965.3 L 561.78 965.81 L 540.17 943.9 C 546.68 945.12 554.28 945.96 562.92 945.96 C 591.52 945.96 637.89 936.47 696.4 891.29 C 740.68 857.1 852.02 780.36 929.24 806.28 C 963.83 817.89 988.33 849.37 1002.07 899.85 L 1003.71 899.4 L 923.79 980.45 C 924.69 955.06 917.64 936.36 902.65 924.77 C 864.67 895.38 787.27 921.26 729.04 948.14 C 619.41 998.73 590.06 996.62 562.35 965.3 Z M 597.61 1002.14 C 601.04 1002.6 604.57 1002.84 608.25 1002.84 C 610.87 1002.84 613.56 1002.73 616.32 1002.51 C 642.42 1000.44 678.02 988.26 735.34 961.8 C 812.33 926.28 868.47 917.35 893.44 936.67 C 907.34 947.42 911.84 967.92 906.89 997.58 L 750 1156.68 Z M 1080.61 821.42 L 1014.46 888.5 C 998.92 837.17 971.89 804.71 934.03 792.01 C 852.97 764.8 744.59 835.07 687.2 879.39 C 632.66 921.5 590.16 930.65 564.12 930.91 C 536.22 931.19 520.78 921.59 520.63 921.49 L 519.62 923.07 L 436.46 838.73 C 450.12 841.88 468.05 844.61 489.07 844.61 C 491.75 844.61 494.48 844.56 497.25 844.47 C 545.83 842.83 618.75 825.1 690.28 749.88 C 730.65 707.43 769.95 675.25 807.09 654.23 C 839.42 635.93 869.45 626.38 896.36 625.83 C 921.86 625.32 943.72 633.12 959.51 648.43 L 959.66 648.27 Z M 1080.61 821.42 "/><path d="M 749.98 475.42 C 720.75 475.42 696.95 499.21 696.95 528.46 C 696.95 557.7 720.75 581.52 749.98 581.52 C 779.23 581.52 803.05 557.7 803.05 528.46 C 803.05 499.21 779.23 475.42 749.98 475.42 Z M 749.98 570.9 C 726.59 570.9 707.54 551.86 707.54 528.46 C 707.54 505.06 726.59 486.01 749.98 486.01 C 773.38 486.01 792.43 505.06 792.43 528.46 C 792.43 551.86 773.38 570.9 749.98 570.9 Z M 749.98 570.9 "/><path d="M 749.98 464.8 C 752.91 464.8 755.29 462.42 755.29 459.5 L 755.29 448.91 C 755.29 445.98 752.93 443.6 749.98 443.6 C 747.04 443.6 744.68 445.98 744.68 448.91 L 744.68 459.52 C 744.68 462.45 747.07 464.8 749.98 464.8 Z M 749.98 464.8 "/><path d="M 710.91 471.41 C 711.89 473.12 713.66 474.05 715.52 474.05 C 716.42 474.05 717.34 473.82 718.16 473.34 C 720.69 471.88 721.56 468.62 720.1 466.1 L 714.79 456.91 C 713.33 454.38 710.07 453.51 707.54 454.97 C 705.02 456.43 704.14 459.69 705.61 462.22 Z M 710.91 471.41 "/><path d="M 692.94 489.38 L 683.75 484.07 C 681.22 482.61 677.96 483.48 676.5 486.01 C 675.04 488.54 675.91 491.8 678.44 493.26 L 687.62 498.57 C 688.47 499.05 689.37 499.27 690.27 499.27 C 692.09 499.27 693.89 498.32 694.88 496.63 C 696.34 494.1 695.46 490.84 692.94 489.38 Z M 692.94 489.38 "/><path d="M 686.34 528.46 C 686.34 525.54 683.95 523.15 681.03 523.15 L 670.44 523.15 C 667.52 523.15 665.12 525.54 665.12 528.46 C 665.12 531.38 667.52 533.77 670.44 533.77 L 681.05 533.77 C 683.98 533.77 686.34 531.41 686.34 528.46 Z M 686.34 528.46 "/><path d="M 687.62 558.34 L 678.44 563.65 C 675.91 565.11 675.04 568.37 676.5 570.9 C 677.48 572.61 679.26 573.54 681.11 573.54 C 682.01 573.54 682.94 573.32 683.75 572.84 L 692.94 567.53 C 695.46 566.07 696.34 562.81 694.88 560.28 C 693.41 557.75 690.16 556.88 687.62 558.34 Z M 687.62 558.34 "/><path d="M 718.16 583.6 C 715.63 582.14 712.38 583.01 710.91 585.54 L 705.63 594.72 C 704.17 597.25 705.04 600.51 707.57 601.97 C 708.41 602.45 709.31 602.67 710.21 602.67 C 712.04 602.67 713.84 601.71 714.82 600.03 L 720.12 590.84 C 721.59 588.29 720.71 585.06 718.16 583.6 Z M 718.16 583.6 "/><path d="M 749.98 592.11 C 747.07 592.11 744.68 594.5 744.68 597.42 L 744.68 608.04 C 744.68 610.96 747.07 613.34 749.98 613.34 C 752.91 613.34 755.29 610.96 755.29 608.04 L 755.29 597.42 C 755.29 594.5 752.93 592.11 749.98 592.11 Z M 749.98 592.11 "/><path d="M 789.06 585.54 C 787.6 583.01 784.34 582.14 781.81 583.6 C 779.29 585.06 778.41 588.32 779.88 590.84 L 785.18 600.03 C 786.16 601.74 787.93 602.67 789.79 602.67 C 790.69 602.67 791.61 602.45 792.43 601.97 C 794.96 600.51 795.83 597.25 794.37 594.72 Z M 789.06 585.54 "/><path d="M 821.56 563.65 L 812.37 558.34 C 809.84 556.88 806.59 557.75 805.12 560.28 C 803.66 562.81 804.54 566.07 807.06 567.53 L 816.25 572.84 C 817.09 573.32 817.99 573.54 818.89 573.54 C 820.71 573.54 822.51 572.59 823.5 570.9 C 824.96 568.37 824.09 565.11 821.56 563.65 Z M 821.56 563.65 "/><path d="M 829.56 523.15 L 818.95 523.15 C 816.02 523.15 813.64 525.54 813.64 528.46 C 813.64 531.38 816.02 533.77 818.95 533.77 L 829.56 533.77 C 832.48 533.77 834.87 531.38 834.87 528.46 C 834.87 525.54 832.48 523.15 829.56 523.15 Z M 829.56 523.15 "/><path d="M 809.7 499.3 C 810.6 499.3 811.53 499.07 812.34 498.6 L 821.53 493.29 C 824.06 491.83 824.93 488.57 823.47 486.04 C 822.01 483.51 818.75 482.64 816.22 484.1 L 807.06 489.38 C 804.54 490.84 803.66 494.1 805.12 496.63 C 806.11 498.34 807.88 499.3 809.7 499.3 Z M 809.7 499.3 "/><path d="M 781.81 473.34 C 782.65 473.82 783.55 474.05 784.45 474.05 C 786.28 474.05 788.07 473.09 789.06 471.41 L 794.37 462.22 C 795.83 459.69 794.96 456.43 792.43 454.97 C 789.9 453.51 786.64 454.38 785.18 456.91 L 779.88 466.1 C 778.41 468.62 779.29 471.88 781.81 473.34 Z M 781.81 473.34 "/></g></symbol><symbol id="hl-word" viewBox="270.7 991.4 947.2 109.0"><g fill="currentColor"><path transform="matrix(1, 0, 0, 1, 263, 992) translate(1.647517, 104.285613)" d="M 16.14 0 L 8.08 0 L 8.08 -100.92 L 16.14 -100.92 L 16.14 -47.84 C 19.11 -51.27 22.58 -54.08 26.55 -56.27 C 30.52 -58.45 34.75 -60.08 39.25 -61.16 C 43.76 -62.23 48.3 -62.77 52.89 -62.77 C 57.46 -62.77 61.87 -62.26 66.11 -61.25 C 70.35 -60.25 74.21 -58.77 77.7 -56.81 L 77.7 -100.92 L 85.78 -100.92 L 85.78 0 L 77.7 0 L 77.7 -48.64 C 77.7 -51.13 76.88 -53.2 75.23 -54.84 C 73.59 -56.5 71.38 -57.73 68.62 -58.53 C 65.86 -59.34 62.73 -59.75 59.23 -59.75 C 55.61 -59.75 51.8 -59.31 47.83 -58.44 C 43.86 -57.56 40.01 -56.27 36.28 -54.55 C 32.55 -52.83 29.16 -50.71 26.09 -48.19 C 23.03 -45.66 20.6 -42.74 18.81 -39.41 C 17.03 -36.08 16.14 -32.4 16.14 -28.36 Z M 16.14 0 "/><path transform="matrix(1, 0, 0, 1, 263, 992) translate(95.502014, 104.285613)" d="M 10.91 0 L 2.02 0 L 36.44 -96.17 L 34.31 -100.92 L 43.19 -100.92 L 88.2 0 L 79.33 0 L 71.95 -16.45 C 70.74 -19.21 68.96 -21.7 66.61 -23.92 C 64.25 -26.14 61.59 -28.02 58.62 -29.56 C 55.66 -31.11 52.6 -32.29 49.44 -33.09 C 46.28 -33.91 43.29 -34.31 40.47 -34.31 C 37.24 -34.31 34.05 -33.8 30.92 -32.8 C 27.8 -31.79 24.75 -30.21 21.8 -28.06 C 20.72 -27.25 19.64 -25.91 18.56 -24.06 C 17.49 -22.22 16.72 -20.49 16.25 -18.88 Z M 21.91 -38.25 C 21.43 -36.44 21.59 -35.53 22.41 -35.53 C 22.81 -35.53 23.55 -35.8 24.62 -36.33 C 26.64 -37.47 28.73 -38.3 30.88 -38.8 C 33.03 -39.3 35.22 -39.56 37.44 -39.56 C 42.22 -39.56 46.93 -38.55 51.56 -36.53 C 56.21 -34.51 60.45 -31.92 64.28 -28.77 C 65.43 -27.82 66.15 -27.46 66.45 -27.7 C 66.75 -27.94 66.6 -28.73 66 -30.08 L 39.97 -88.41 C 39.36 -89.82 38.72 -90.53 38.05 -90.53 C 37.37 -90.53 36.77 -89.72 36.23 -88.11 Z M 21.91 -38.25 "/><path transform="matrix(1, 0, 0, 1, 263, 992) translate(184.007815, 104.285613)" d="M 8.08 0 L 8.08 -100.92 L 54.5 -100.92 C 59.61 -100.92 64 -100.27 67.67 -98.95 C 71.34 -97.64 74.35 -95.91 76.7 -93.75 C 79.05 -91.6 80.92 -89.23 82.3 -86.64 C 83.68 -84.05 84.64 -81.49 85.17 -78.97 C 85.71 -76.45 85.98 -74.18 85.98 -72.16 C 85.98 -70.13 85.71 -67.86 85.17 -65.34 C 84.64 -62.82 83.68 -60.3 82.3 -57.78 C 80.92 -55.26 79.05 -52.92 76.7 -50.77 C 74.35 -48.61 71.35 -46.86 67.72 -45.52 C 64.08 -44.17 59.68 -43.46 54.5 -43.39 L 51.58 -43.39 C 50.09 -43.39 49.41 -43.16 49.55 -42.69 C 49.68 -42.22 50.36 -41.52 51.58 -40.58 C 54.4 -38.35 57.27 -35.38 60.2 -31.69 C 63.13 -27.99 66.44 -23.65 70.14 -18.67 C 72.22 -15.91 74.43 -13.29 76.75 -10.8 C 79.07 -8.3 81.29 -6.13 83.41 -4.28 C 85.53 -2.44 87.33 -1.01 88.81 0 L 77.41 0 C 75.05 -1.41 72.63 -3.45 70.14 -6.11 C 67.65 -8.77 65.16 -11.74 62.67 -15.03 C 60.18 -18.33 57.71 -21.63 55.25 -24.92 C 52.8 -28.22 50.39 -31.27 48.03 -34.06 C 45.68 -36.85 43.39 -39.1 41.17 -40.81 C 38.95 -42.53 36.83 -43.39 34.81 -43.39 L 25.84 -43.39 L 25.84 -45.42 L 45.61 -45.42 C 55.7 -45.42 63.35 -47.82 68.56 -52.62 C 73.78 -57.44 76.39 -63.95 76.39 -72.16 C 76.39 -80.36 73.78 -86.88 68.56 -91.69 C 63.35 -96.5 55.7 -98.91 45.61 -98.91 L 21.39 -98.91 C 19.58 -98.91 18.23 -98.54 17.36 -97.8 C 16.48 -97.05 16.05 -95.3 16.05 -92.55 C 16.05 -92.14 16.05 -90.54 16.05 -87.75 C 16.05 -84.96 16.05 -81.32 16.05 -76.84 C 16.05 -72.38 16.05 -67.41 16.05 -61.97 C 16.05 -56.52 16.06 -50.91 16.09 -45.16 C 16.12 -39.41 16.14 -33.84 16.14 -28.45 C 16.14 -23.08 16.14 -18.25 16.14 -13.97 C 16.14 -9.7 16.14 -6.3 16.14 -3.78 C 16.14 -1.26 16.14 0 16.14 0 Z M 8.08 0 "/><path transform="matrix(1, 0, 0, 1, 263, 992) translate(274.834729, 104.285613)" d="M 54.5 0 L 8.08 0 L 8.08 -100.92 L 52.28 -100.92 C 57.05 -100.92 61.05 -100.36 64.28 -99.25 C 67.51 -98.14 70.1 -96.72 72.05 -94.97 C 74 -93.22 75.49 -91.33 76.5 -89.31 C 77.51 -87.29 78.18 -85.34 78.52 -83.45 C 78.85 -81.58 79.02 -79.97 79.02 -78.62 C 79.02 -77.13 78.7 -75.33 78.06 -73.22 C 77.43 -71.1 76.35 -68.95 74.83 -66.77 C 73.32 -64.58 71.21 -62.62 68.52 -60.91 C 65.83 -59.19 62.47 -58.02 58.44 -57.42 C 64.02 -56.95 68.61 -55.67 72.2 -53.58 C 75.8 -51.49 78.62 -48.97 80.64 -46.02 C 82.66 -43.05 84.05 -40.05 84.83 -36.98 C 85.6 -33.92 85.98 -31.18 85.98 -28.77 C 85.98 -26.74 85.71 -24.47 85.17 -21.95 C 84.64 -19.43 83.68 -16.89 82.3 -14.33 C 80.92 -11.77 79.05 -9.41 76.7 -7.22 C 74.35 -5.03 71.35 -3.28 67.72 -1.97 C 64.08 -0.66 59.68 0 54.5 0 Z M 16.05 -8.88 C 16.05 -6.19 16.48 -4.37 17.36 -3.42 C 18.23 -2.48 19.58 -2.02 21.39 -2.02 L 45.61 -2.02 C 55.7 -2.02 63.35 -4.42 68.56 -9.23 C 73.78 -14.05 76.39 -20.55 76.39 -28.77 C 76.39 -36.97 73.78 -43.53 68.56 -48.44 C 63.35 -53.35 55.7 -55.81 45.61 -55.81 L 21.19 -55.81 C 19.71 -55.81 18.49 -55.35 17.55 -54.44 C 16.61 -53.53 16.14 -52.3 16.14 -50.77 C 16.14 -45.52 16.12 -40.45 16.09 -35.58 C 16.06 -30.7 16.05 -26.33 16.05 -22.45 C 16.05 -18.59 16.05 -15.44 16.05 -13.02 C 16.05 -10.6 16.05 -9.22 16.05 -8.88 Z M 16.14 -94.06 L 16.14 -62.88 C 16.14 -61.39 16.61 -60.18 17.55 -59.23 C 18.49 -58.3 19.71 -57.83 21.19 -57.83 L 46.22 -57.83 C 51.53 -57.83 55.99 -58.79 59.59 -60.7 C 63.2 -62.62 65.94 -65.19 67.81 -68.42 C 69.7 -71.65 70.64 -75.15 70.64 -78.92 C 70.64 -82.69 69.7 -86.09 67.81 -89.11 C 65.94 -92.14 63.2 -94.53 59.59 -96.28 C 55.99 -98.03 51.53 -98.91 46.22 -98.91 L 21.39 -98.91 C 19.85 -98.91 18.64 -98.58 17.77 -97.94 C 16.89 -97.3 16.35 -96.01 16.14 -94.06 Z M 16.14 -94.06 "/><path transform="matrix(1, 0, 0, 1, 263, 992) translate(365.459824, 104.285613)" d="M 55.41 2.02 C 48.48 2.02 41.97 0.77 35.88 -1.72 C 29.79 -4.21 24.44 -7.77 19.83 -12.41 C 15.22 -17.05 11.61 -22.59 8.98 -29.02 C 6.36 -35.44 5.05 -42.59 5.05 -50.45 C 5.05 -58.33 6.36 -65.48 8.98 -71.91 C 11.61 -78.33 15.22 -83.86 19.83 -88.5 C 24.44 -93.14 29.79 -96.71 35.88 -99.2 C 41.97 -101.69 48.48 -102.94 55.41 -102.94 C 62.33 -102.94 68.84 -101.69 74.92 -99.2 C 81.02 -96.71 86.38 -93.14 91.03 -88.5 C 95.68 -83.86 99.3 -78.33 101.92 -71.91 C 104.55 -65.48 105.86 -58.33 105.86 -50.45 C 105.86 -42.59 104.55 -35.44 101.92 -29.02 C 99.3 -22.59 95.68 -17.05 91.03 -12.41 C 86.38 -7.77 81.02 -4.21 74.92 -1.72 C 68.84 0.77 62.33 2.02 55.41 2.02 Z M 13.12 -50.45 C 13.12 -42.92 14.22 -36.06 16.41 -29.88 C 18.59 -23.69 21.63 -18.35 25.53 -13.88 C 29.44 -9.41 33.93 -5.97 39 -3.58 C 44.08 -1.19 49.55 0 55.41 0 C 61.26 0 66.74 -1.19 71.86 -3.58 C 76.97 -5.97 81.46 -9.41 85.33 -13.88 C 89.19 -18.35 92.23 -23.69 94.45 -29.88 C 96.68 -36.06 97.8 -42.92 97.8 -50.45 C 97.8 -58.05 96.68 -64.94 94.45 -71.09 C 92.23 -77.25 89.19 -82.56 85.33 -87.03 C 81.46 -91.51 76.97 -94.94 71.86 -97.33 C 66.74 -99.72 61.26 -100.92 55.41 -100.92 C 49.55 -100.92 44.08 -99.72 39 -97.33 C 33.93 -94.94 29.44 -91.51 25.53 -87.03 C 21.63 -82.56 18.59 -77.25 16.41 -71.09 C 14.22 -64.94 13.12 -58.05 13.12 -50.45 Z M 13.12 -50.45 "/><path transform="matrix(1, 0, 0, 1, 263, 992) translate(476.369588, 104.285613)" d="M 8.08 0 L 8.08 -100.92 L 54.5 -100.92 C 59.61 -100.92 64 -100.27 67.67 -98.95 C 71.34 -97.64 74.35 -95.91 76.7 -93.75 C 79.05 -91.6 80.92 -89.23 82.3 -86.64 C 83.68 -84.05 84.64 -81.49 85.17 -78.97 C 85.71 -76.45 85.98 -74.18 85.98 -72.16 C 85.98 -70.13 85.71 -67.86 85.17 -65.34 C 84.64 -62.82 83.68 -60.3 82.3 -57.78 C 80.92 -55.26 79.05 -52.92 76.7 -50.77 C 74.35 -48.61 71.35 -46.86 67.72 -45.52 C 64.08 -44.17 59.68 -43.46 54.5 -43.39 L 51.58 -43.39 C 50.09 -43.39 49.41 -43.16 49.55 -42.69 C 49.68 -42.22 50.36 -41.52 51.58 -40.58 C 54.4 -38.35 57.27 -35.38 60.2 -31.69 C 63.13 -27.99 66.44 -23.65 70.14 -18.67 C 72.22 -15.91 74.43 -13.29 76.75 -10.8 C 79.07 -8.3 81.29 -6.13 83.41 -4.28 C 85.53 -2.44 87.33 -1.01 88.81 0 L 77.41 0 C 75.05 -1.41 72.63 -3.45 70.14 -6.11 C 67.65 -8.77 65.16 -11.74 62.67 -15.03 C 60.18 -18.33 57.71 -21.63 55.25 -24.92 C 52.8 -28.22 50.39 -31.27 48.03 -34.06 C 45.68 -36.85 43.39 -39.1 41.17 -40.81 C 38.95 -42.53 36.83 -43.39 34.81 -43.39 L 25.84 -43.39 L 25.84 -45.42 L 45.61 -45.42 C 55.7 -45.42 63.35 -47.82 68.56 -52.62 C 73.78 -57.44 76.39 -63.95 76.39 -72.16 C 76.39 -80.36 73.78 -86.88 68.56 -91.69 C 63.35 -96.5 55.7 -98.91 45.61 -98.91 L 21.39 -98.91 C 19.58 -98.91 18.23 -98.54 17.36 -97.8 C 16.48 -97.05 16.05 -95.3 16.05 -92.55 C 16.05 -92.14 16.05 -90.54 16.05 -87.75 C 16.05 -84.96 16.05 -81.32 16.05 -76.84 C 16.05 -72.38 16.05 -67.41 16.05 -61.97 C 16.05 -56.52 16.06 -50.91 16.09 -45.16 C 16.12 -39.41 16.14 -33.84 16.14 -28.45 C 16.14 -23.08 16.14 -18.25 16.14 -13.97 C 16.14 -9.7 16.14 -6.3 16.14 -3.78 C 16.14 -1.26 16.14 0 16.14 0 Z M 8.08 0 "/><path transform="matrix(1, 0, 0, 1, 263, 992) translate(567.196502, 104.285613)" d="M 78.02 0 L 8.08 0 L 8.08 -100.92 L 16.05 -100.92 L 16.05 -8.88 C 16.05 -6.19 16.48 -4.37 17.36 -3.42 C 18.23 -2.48 19.58 -2.02 21.39 -2.02 C 25.1 -2.02 29.07 -2.15 33.3 -2.42 C 37.54 -2.69 41.86 -3.05 46.27 -3.48 C 50.68 -3.92 54.91 -4.44 58.94 -5.05 C 62.98 -5.65 66.64 -6.29 69.94 -6.95 C 73.24 -7.63 75.93 -8.3 78.02 -8.98 Z M 78.02 0 "/><path transform="matrix(1, 0, 0, 1, 263, 992) translate(649.647138, 104.285613)" d="M 8.08 0 L 8.08 -100.92 L 16.14 -100.92 L 16.14 0 Z M 8.08 0 "/><path transform="matrix(1, 0, 0, 1, 263, 992) translate(673.867681, 104.285613)" d="M 5.05 -50.45 C 5.05 -58.33 6.36 -65.48 8.98 -71.91 C 11.61 -78.33 15.22 -83.86 19.83 -88.5 C 24.44 -93.14 29.79 -96.71 35.88 -99.2 C 41.97 -101.69 48.48 -102.94 55.41 -102.94 C 59.98 -102.94 64.52 -102.52 69.03 -101.67 C 73.54 -100.84 77.63 -99.59 81.3 -97.94 C 84.96 -96.29 87.91 -94.24 90.12 -91.78 C 92.34 -89.33 93.45 -86.49 93.45 -83.27 C 93.45 -81.38 93.06 -80.05 92.28 -79.27 C 91.51 -78.49 90.75 -78.04 90.02 -77.91 C 89.27 -77.77 88.91 -77.7 88.91 -77.7 C 88.51 -80.54 87.37 -83.33 85.48 -86.08 C 83.6 -88.84 81.12 -91.33 78.06 -93.55 C 75 -95.77 71.53 -97.56 67.66 -98.91 C 63.79 -100.25 59.71 -100.92 55.41 -100.92 C 49.55 -100.92 44.08 -99.72 39 -97.33 C 33.93 -94.94 29.44 -91.51 25.53 -87.03 C 21.63 -82.56 18.59 -77.25 16.41 -71.09 C 14.22 -64.94 13.12 -58.05 13.12 -50.45 C 13.12 -42.92 14.22 -36.06 16.41 -29.88 C 18.59 -23.69 21.63 -18.35 25.53 -13.88 C 29.44 -9.41 33.93 -5.97 39 -3.58 C 44.08 -1.19 49.55 0 55.41 0 C 58.16 0 61.26 -0.47 64.69 -1.41 C 68.12 -2.35 71.42 -3.73 74.58 -5.55 C 77.74 -7.37 80.35 -9.59 82.41 -12.2 C 84.46 -14.83 85.48 -17.79 85.48 -21.09 L 85.48 -54.7 L 94.16 -54.7 L 94.16 -10.8 C 92.54 -8.3 89.77 -6.1 85.83 -4.19 C 81.9 -2.27 77.29 -0.76 72 0.34 C 66.72 1.46 61.19 2.02 55.41 2.02 C 48.48 2.02 41.97 0.77 35.88 -1.72 C 29.79 -4.21 24.44 -7.77 19.83 -12.41 C 15.22 -17.05 11.61 -22.59 8.98 -29.02 C 6.36 -35.44 5.05 -42.59 5.05 -50.45 Z M 5.05 -50.45 "/><path transform="matrix(1, 0, 0, 1, 263, 992) translate(775.291089, 104.285613)" d="M 16.14 0 L 8.08 0 L 8.08 -100.92 L 16.14 -100.92 L 16.14 -47.84 C 19.11 -51.27 22.58 -54.08 26.55 -56.27 C 30.52 -58.45 34.75 -60.08 39.25 -61.16 C 43.76 -62.23 48.3 -62.77 52.89 -62.77 C 57.46 -62.77 61.87 -62.26 66.11 -61.25 C 70.35 -60.25 74.21 -58.77 77.7 -56.81 L 77.7 -100.92 L 85.78 -100.92 L 85.78 0 L 77.7 0 L 77.7 -48.64 C 77.7 -51.13 76.88 -53.2 75.23 -54.84 C 73.59 -56.5 71.38 -57.73 68.62 -58.53 C 65.86 -59.34 62.73 -59.75 59.23 -59.75 C 55.61 -59.75 51.8 -59.31 47.83 -58.44 C 43.86 -57.56 40.01 -56.27 36.28 -54.55 C 32.55 -52.83 29.16 -50.71 26.09 -48.19 C 23.03 -45.66 20.6 -42.74 18.81 -39.41 C 17.03 -36.08 16.14 -32.4 16.14 -28.36 Z M 16.14 0 "/><path transform="matrix(1, 0, 0, 1, 263, 992) translate(869.145586, 104.285613)" d="M 6.06 -100.92 L 83.77 -100.92 L 83.77 -91.94 C 81.68 -92.88 79.18 -93.76 76.25 -94.56 C 73.32 -95.38 70.36 -96.11 67.36 -96.78 C 64.37 -97.46 61.68 -97.98 59.28 -98.34 C 56.89 -98.72 55.23 -98.91 54.3 -98.91 C 52.48 -98.91 51.14 -98.45 50.27 -97.53 C 49.39 -96.62 48.95 -94.8 48.95 -92.05 L 48.95 0 L 40.88 0 L 40.88 -92.05 C 40.88 -94.8 40.44 -96.62 39.56 -97.53 C 38.69 -98.45 37.34 -98.91 35.53 -98.91 C 34.58 -98.91 32.91 -98.72 30.53 -98.34 C 28.14 -97.98 25.45 -97.46 22.45 -96.78 C 19.46 -96.11 16.5 -95.38 13.58 -94.56 C 10.65 -93.76 8.14 -92.88 6.06 -91.94 Z M 6.06 -100.92 "/></g></symbol><symbol id="hl-digital" viewBox="626.4 1133.2 250.8 35.1"><g fill="currentColor"><path transform="translate(624.693266, 1165.835856)" d="M 15.86 -30.5 C 20.25 -30.5 23.63 -29.27 25.98 -26.83 C 28.34 -24.38 29.52 -20.86 29.52 -16.28 C 29.52 -10.91 28.2 -6.8 25.56 -3.95 C 22.93 -1.1 19.16 0.33 14.27 0.33 C 12.79 0.33 11.02 0.3 8.97 0.23 C 6.91 0.17 5.15 0.09 3.67 0 L 4 -9.03 L 3.67 -30.31 Z M 15.39 -4.61 C 20.38 -4.61 22.88 -8.02 22.88 -14.83 C 22.88 -18.54 22.27 -21.23 21.06 -22.91 C 19.85 -24.58 17.96 -25.42 15.39 -25.42 C 13.73 -25.42 11.96 -25.34 10.08 -25.19 L 9.8 -9.61 L 9.94 -4.94 C 12.13 -4.72 13.95 -4.61 15.39 -4.61 Z M 15.39 -4.61 "/><path transform="translate(670.78084, 1165.835856)" d="M 9.8 -9.61 L 10.08 0 L 3.67 0 L 4 -9.03 L 3.67 -30.31 L 10.17 -30.31 Z M 9.8 -9.61 "/><path transform="translate(699.921707, 1165.835856)" d="M 17.14 -30.69 C 20.43 -30.69 23.39 -30.08 26.03 -28.86 L 24.67 -23.11 L 24.06 -23.02 C 22.52 -23.9 21.14 -24.54 19.94 -24.92 C 18.73 -25.32 17.43 -25.52 16.05 -25.52 C 13.25 -25.52 11.21 -24.68 9.92 -23.02 C 8.64 -21.36 8 -18.63 8 -14.83 C 8 -12.32 8.27 -10.32 8.83 -8.84 C 9.38 -7.38 10.23 -6.3 11.39 -5.62 C 12.55 -4.95 14.09 -4.61 16 -4.61 C 16.66 -4.61 17.29 -4.66 17.86 -4.75 C 18.44 -4.84 19.16 -5.02 20.02 -5.27 L 20.11 -7.86 L 20.02 -12.66 L 25.89 -13.09 L 25.75 -8.84 L 25.89 -1.45 C 22.13 -0.2 18.66 0.42 15.48 0.42 C 10.77 0.42 7.23 -0.86 4.86 -3.44 C 2.49 -6.01 1.31 -9.7 1.31 -14.5 C 1.31 -19.74 2.69 -23.74 5.44 -26.52 C 8.19 -29.3 12.09 -30.69 17.14 -30.69 Z M 17.14 -30.69 "/><path transform="translate(743.326053, 1165.835856)" d="M 9.8 -9.61 L 10.08 0 L 3.67 0 L 4 -9.03 L 3.67 -30.31 L 10.17 -30.31 Z M 9.8 -9.61 "/><path transform="translate(772.46692, 1165.835856)" d="M 23.02 -29.8 L 22.64 -25.05 L 16.95 -25.33 L 15.06 -25.33 L 14.83 -9.61 L 15.11 0 L 8.7 0 L 9.03 -9.03 L 8.8 -25.33 L 6.92 -25.33 L 1.12 -25.05 L 0.7 -25.56 L 1.12 -30.31 L 22.64 -30.31 Z M 23.02 -29.8 "/><path transform="translate(811.399213, 1165.835856)" d="M 27.5 0 L 21 0 L 20.25 -3.95 L 19.44 -6.78 L 13.52 -6.92 L 8.28 -6.78 L 7.48 -4.28 L 6.69 0 L 0.38 0 L 10.64 -30.31 L 18.22 -30.31 Z M 18.08 -11.72 L 14.5 -24.34 L 14.08 -24.34 L 9.94 -11.72 L 13.98 -11.62 Z M 18.08 -11.72 "/><path transform="translate(854.897699, 1165.835856)" d="M 20.3 -4.75 L 19.86 0 L 3.48 0 L 3.81 -9.03 L 3.48 -30.31 L 9.98 -30.31 L 9.61 -9.61 L 9.75 -5.27 L 19.91 -5.27 Z M 20.3 -4.75 "/></g></symbol></svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="Harborlight Digital, back to top">
+      <svg class="brand-mark" viewBox="0 0 702.5 858.2" aria-hidden="true"><use href="#hl-mark" width="702.5" height="858.2"/></svg>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="sr-only">Menu</span>
+      <span class="nav-toggle-lines" aria-hidden="true"></span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <!-- Testimonials: hidden until real client reviews are ready.
+        <li><a href="#testimonials">Testimonials</a></li> -->
+      </ul>
+      <a class="btn btn-solid nav-cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-copy">
+      <h1 id="hero-title" class="hero-title">
+        <span class="sr-only">Harborlight Digital</span>
+        <!-- One-line "HARBORLIGHT DIGITAL" goes here once exported from Canva; see README. -->
+        <svg class="hero-word" viewBox="0 0 947.2 109" aria-hidden="true"><use href="#hl-word" width="947.2" height="109"/></svg>
+        <svg class="hero-digital" viewBox="0 0 250.8 35.1" aria-hidden="true"><use href="#hl-digital" width="250.8" height="35.1"/></svg>
+      </h1>
+      <p class="hero-slogan">Custom Site Design,<br>Built for Your Business.</p>
+    </div>
+    <canvas class="wave-canvas hero-waves" data-wave="hero" aria-hidden="true"></canvas>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about" aria-labelledby="about-title">
+    <canvas class="wave-canvas about-waves" data-wave="about" aria-hidden="true"></canvas>
+    <div class="wrap about-inner">
+      <h2 id="about-title" class="display about-title">About</h2>
+      <div class="about-copy">
+        <p>Harborlight Digital designs custom websites for small businesses in San Antonio and Austin.</p>
+        <p>We started with something we kept noticing: some of the best local businesses are the hardest to find online. Their work speaks for itself in person, but customers searching from their phones never see it, and they end up with whoever does show up.</p>
+        <p>So every site we make is designed around the business it belongs to, written in its own voice, and built to be found. Like a harbor light, it doesn't need to shout. It only has to guide the right people to your door.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY HARBORLIGHT -->
+  <section class="why" aria-labelledby="why-title">
+    <canvas class="wave-canvas why-contours" data-wave="contours" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="glass why-card">
+        <h2 id="why-title" class="display why-title">
+          <span class="sr-only">Why Harborlight?</span>
+          <span aria-hidden="true">Why <svg class="inline-word" viewBox="0 0 947.2 109"><use href="#hl-word" width="947.2" height="109"/></svg>?</span>
+        </h2>
+        <ul class="why-grid">
+          <li class="why-item">
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="24" cy="24" r="3"/>
+                <path d="M15.5 15.5a12 12 0 0 0 0 17M32.5 15.5a12 12 0 0 1 0 17"/>
+                <path d="M10 10a19.5 19.5 0 0 0 0 28M38 10a19.5 19.5 0 0 1 0 28"/>
+              </svg>
+            </span>
+            <h3 class="why-label">Expand your reach</h3>
+            <p class="why-text">Show up where local customers are already searching.</p>
+          </li>
+          <li class="why-item">
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="24" cy="24" r="15"/>
+                <path d="M9 24h30M24 9c-4.5 4.2-6.8 9.2-6.8 15s2.3 10.8 6.8 15c4.5-4.2 6.8-9.2 6.8-15S28.5 13.2 24 9z"/>
+              </svg>
+            </span>
+            <h3 class="why-label">Personalize your domain</h3>
+            <p class="why-text">A web address that's yours, connected and set up right.</p>
+          </li>
+          <li class="why-item">
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M24 8l13 5v10c0 8.5-5.6 14.6-13 17-7.4-2.4-13-8.5-13-17V13l13-5z"/>
+                <path d="M18 24.5l4.2 4.2L30.5 20"/>
+              </svg>
+            </span>
+            <h3 class="why-label">Dependable hosting</h3>
+            <p class="why-text">Fast, secure, and always on, with no plugins to babysit.</p>
+          </li>
+          <li class="why-item">
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="15" y="7" width="18" height="34" rx="3.5"/>
+                <path d="M21.5 36.5h5"/>
+              </svg>
+            </span>
+            <h3 class="why-label">Mobile-optimized design</h3>
+            <p class="why-text">Looks and works right on every phone, tablet, and desktop.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES / PRICING -->
+  <section class="services" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 id="services-title" class="display">Services</h2>
+        <p class="lede">Every plan is designed from scratch. The difference is scope.</p>
+      </header>
+
+      <div class="glass plans">
+        <article class="plan">
+          <h3 class="plan-name">Starter</h3>
+          <p class="plan-price"><span class="amount">$1,000</span> <span class="unit">one-time</span></p>
+          <p class="plan-time">About 3 weeks</p>
+          <ul class="plan-list">
+            <li>Custom design, 3–5 pages</li>
+            <li>Customer contact form</li>
+            <li>2 revision rounds</li>
+          </ul>
+          <a class="btn btn-line plan-cta" href="#contact" data-package="Starter">Choose Starter</a>
+        </article>
+
+        <article class="plan plan-featured" aria-describedby="rec-note">
+          <p class="plan-tag" id="rec-note">Recommended</p>
+          <h3 class="plan-name">Business</h3>
+          <p class="plan-price"><span class="amount">$1,400</span> <span class="unit">one-time</span></p>
+          <p class="plan-time">About 4 weeks</p>
+          <ul class="plan-list">
+            <li>Custom design, 8–10 pages</li>
+            <li>SEO setup</li>
+            <li>3 revision rounds</li>
+          </ul>
+          <a class="btn btn-solid plan-cta" href="#contact" data-package="Business">Choose Business</a>
+        </article>
+
+        <article class="plan">
+          <h3 class="plan-name">Custom</h3>
+          <p class="plan-price"><span class="from">from</span> <span class="amount">$2,200</span> <span class="unit">quote-based</span></p>
+          <p class="plan-time">About 5 weeks</p>
+          <ul class="plan-list">
+            <li>Custom design, unlimited pages</li>
+            <li>SEO setup</li>
+            <li>On-site photography session</li>
+            <li>Ongoing support</li>
+          </ul>
+          <a class="btn btn-line plan-cta" href="#contact" data-package="Custom">Request a quote</a>
+        </article>
+      </div>
+
+      <ul class="plan-notes">
+        <li>Every plan includes mobile-friendly design and domain connection.</li>
+        <li>Prefer to edit your site yourself? We also build on Wix, priced at the Business tier.</li>
+        <li>On-site photography is available for businesses in the San Antonio and Austin areas.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq-inner">
+      <header class="faq-head">
+        <h2 id="faq-title" class="display">Questions</h2>
+        <p class="lede">Anything else? <a href="#contact">Send us a note.</a></p>
+      </header>
+
+      <div class="faq-list">
+        <details>
+          <summary>How long does a website take?</summary>
+          <div class="faq-answer"><p>Starter sites usually take about 3 weeks, Business sites about 4, and Custom projects about 5. The clock starts once we have your content and photos.</p></div>
+        </details>
+        <details>
+          <summary>What do you need from me to get started?</summary>
+          <div class="faq-answer"><p>Your logo if you have one, a few sentences about your business, the services you want listed, and any photos you'd like to use. We'll send a short questionnaire that walks you through the rest.</p></div>
+        </details>
+        <details>
+          <summary>What do you build websites with?</summary>
+          <div class="faq-answer"><p>Most sites are hand-coded, which keeps them fast and secure with nothing to patch or update. If you'd rather make edits yourself, we can build on Wix instead, priced at the Business tier.</p></div>
+        </details>
+        <details>
+          <summary>How does payment work?</summary>
+          <div class="faq-answer"><p>A 50% deposit reserves your start date. The remaining 50% is due when you approve the finished site, before it goes live.</p></div>
+        </details>
+        <details>
+          <summary>What happens after launch?</summary>
+          <div class="faq-answer"><p>Custom plans include ongoing support. For Starter and Business sites, help is there whenever you need it: $50 for a small update, and larger changes at $75 an hour, quoted before we start. There's no subscription.</p></div>
+        </details>
+        <details>
+          <summary>Do I own my website?</summary>
+          <div class="faq-answer"><p>Yes. Your domain is registered in your name and your content is yours. If you ever move on, we'll hand over everything you need.</p></div>
+        </details>
+        <details>
+          <summary>Do you offer photography?</summary>
+          <div class="faq-answer"><p>Yes. An on-site session covering your space, products, or team is part of the Custom plan, for businesses in the San Antonio and Austin areas.</p></div>
+        </details>
+        <details>
+          <summary>Do you work outside San Antonio and Austin?</summary>
+          <div class="faq-answer"><p>Our focus is San Antonio and Austin, and we're glad to talk about projects elsewhere. On-site photography stays within those two areas.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap contact-inner">
+      <div class="contact-intro">
+        <h2 id="contact-title" class="display">Let's build something that holds the light.</h2>
+        <p>Tell us a little about your business and where you'd like your site to take it. We'll reply within 1–2 business days.</p>
+        <p class="contact-email"><a href="mailto:hello@harborlightdigital.co">hello@harborlightdigital.co</a></p>
+      </div>
+
+      <div class="glass contact-panel">
+        <form class="contact-form" id="contact-form" action="https://formspree.io/f/mzedrvbp" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="New inquiry from harborlightdigital.co">
+          <p class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Jordan Reyes">
+              <p class="field-error" id="err-name" hidden>Enter your name.</p>
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@yourbusiness.com">
+              <p class="field-error" id="err-email" hidden>Enter an email address we can reply to.</p>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="f-business">Business name <span class="optional">(optional)</span></label>
+              <input id="f-business" name="business" type="text" autocomplete="organization" placeholder="Reyes Plumbing Co.">
+            </div>
+            <div class="field">
+              <label for="f-package">Package of interest</label>
+              <div class="select-wrap">
+                <select id="f-package" name="package">
+                  <option value="Starter">Starter, $1,000</option>
+                  <option value="Business">Business, $1,400</option>
+                  <option value="Custom">Custom, from $2,200</option>
+                  <option value="Not sure yet" selected>Not sure yet</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-message">Message</label>
+            <textarea id="f-message" name="message" rows="4" required placeholder="What should your new site do for your business?"></textarea>
+            <p class="field-error" id="err-message" hidden>Add a short message so we know where to start.</p>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-solid" type="submit">Send message</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <svg class="footer-mark" viewBox="0 0 702.5 858.2" aria-hidden="true"><use href="#hl-mark" width="702.5" height="858.2"/></svg>
+      <div class="footer-lockup">
+        <svg class="footer-word" viewBox="0 0 947.2 109" role="img" aria-label="Harborlight"><use href="#hl-word" width="947.2" height="109"/></svg>
+        <svg class="footer-digital" viewBox="0 0 250.8 35.1" role="img" aria-label="Digital"><use href="#hl-digital" width="250.8" height="35.1"/></svg>
+      </div>
+    </div>
+    <p class="footer-line">Custom web design for San Antonio and Austin businesses.</p>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <p class="footer-email"><a href="mailto:hello@harborlightdigital.co">hello@harborlightdigital.co</a></p>
+    <p class="footer-copy">&copy; <span id="year">2026</span> Harborlight Digital</p>
+  </div>
+</footer>
+
+<button class="theme-toggle" type="button" aria-label="Switch to dark mode">
+  <svg viewBox="0 0 40 40" aria-hidden="true">
+    <circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="3"/>
+    <path d="M20 5a15 15 0 0 1 0 30z" fill="currentColor"/>
+  </svg>
+</button>
+
+<script src="waves.js" defer></script>
+<script src="main.js" defer></script>
+</body>
+</html>
