@@ -17,7 +17,11 @@
   --mist: #e0fbff;
   --hairline: rgba(19, 49, 66, 0.22);
 
-  --about-bg: linear-gradient(180deg, #a4c5d8 0%, #e0fbff 100%);
+  /* Eased so it starts flat where the hero ends: no visible crease between the two. */
+  --about-bg: linear-gradient(180deg, #a4c5d8 0%, #a7c8da 15%, #afcfdf 35%, #bedde9 60%, #e0fbff 100%);
+  --beam-rgb: 255, 252, 242;  /* lighthouse beam in the About fog */
+  --beam-strength: 1;
+  --beam-bleed: clamp(160px, 26vh, 300px); /* how far the beam's light drifts up into the hero */
   --why-bg: linear-gradient(180deg, #e0fbff 0%, #a4c5d8 100%);
   --why-title: #133142;
   --why-ink: #133142;
@@ -41,6 +45,15 @@
   --field-line: rgba(19, 49, 66, 0.45);
   --error: #8a1c1c;
   --success: #12503a;
+  /* Contact form card: the reverse of the page (dark card here, light card in dark mode) */
+  --panel-field-line: rgba(243, 251, 255, 0.45);
+  --panel-error: #ffb4a8;
+  --panel-success: #a8f0cf;
+  --send-bg: #a4c5d8;         /* Send button: harbor blue on the navy card */
+  --send-ink: #133142;
+  --send-hover-bg: #a4c5d8;   /* on hover it keeps its color and gets a soft white glow */
+  --send-hover-ink: #133142;
+  --send-glow: rgba(255, 255, 255, 0.6);   /* softer than dark mode: white glows brighter on navy */
 
   --footer-bg: #133142;
   --footer-ink: #e9f5fb;
@@ -70,7 +83,9 @@
   --ink-soft: #b9cfdc;
   --hairline: rgba(238, 247, 252, 0.2);
 
-  --about-bg: linear-gradient(180deg, #1a3141 0%, #7d96a7 100%);
+  --about-bg: linear-gradient(180deg, #1a3141 0%, #1f3646 15%, #2c4454 35%, #465e6e 60%, #7d96a7 100%);
+  --beam-rgb: 255, 243, 214;
+  --beam-strength: 0.6;
   --why-bg: linear-gradient(180deg, #aee2ff 0%, #000000 100%);
   --why-title: #133142;
   --why-ink: #ffffff;
@@ -93,6 +108,14 @@
   --field-line: rgba(238, 247, 252, 0.45);
   --error: #ffb4a8;
   --success: #a8f0cf;
+  --panel-field-line: rgba(19, 49, 66, 0.45);
+  --panel-error: #8a1c1c;
+  --panel-success: #12503a;
+  --send-bg: #133142;         /* Send button: navy on the light card */
+  --send-ink: #a4c5d8;
+  --send-hover-bg: #133142;   /* stays navy and glows, like the theme toggle */
+  --send-hover-ink: #e0fbff;
+  --send-glow: rgba(240, 252, 255, 0.95);
 
   --footer-bg: #0f2230;
   --footer-ink: #e9f5fb;
@@ -115,6 +138,8 @@
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+/* No gray/blue flash box when tapping links and buttons on phones; each control has its own pressed state. */
+a, button, summary, select, label { -webkit-tap-highlight-color: transparent; }
 body {
   margin: 0;
   background: var(--bg);
@@ -167,8 +192,12 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 }
 .site-header.is-scrolled { box-shadow: 0 1px 0 var(--hairline); }
 .header-inner { height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.brand { display: inline-flex; color: var(--ink); border-radius: 8px; }
-.brand-mark { height: 58px; width: auto; aspect-ratio: 702.5 / 858.2; }
+.brand { display: inline-flex; color: var(--ink); border-radius: 8px; perspective: 480px; }
+/* The logo flips like a card when the theme changes, matching the toggle's coin flip. */
+.brand-flip { display: grid; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.45, .05, .25, 1); }
+:root[data-theme="dark"] .brand-flip { transform: rotateY(180deg); }
+.brand-mark { grid-area: 1 / 1; height: 58px; width: auto; aspect-ratio: 702.5 / 858.2; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.brand-mark--back { transform: rotateY(180deg); }
 
 .site-nav { display: flex; align-items: center; gap: clamp(28px, 5vw, 76px); flex: 1; justify-content: flex-end; }
 .site-nav ul { display: flex; gap: clamp(28px, 6vw, 104px); margin-right: auto; margin-left: clamp(32px, 8vw, 130px); }
@@ -193,18 +222,20 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .hero-digital { width: min(22vw, 260px); min-width: 150px; height: auto; aspect-ratio: 250.8 / 35.1; margin-left: .2%; }
 .hero-slogan { margin-top: clamp(22px, 3vw, 40px); font-size: clamp(22px, 2.3vw, 34px); line-height: 1.4; font-weight: 500; letter-spacing: .005em; }
 .hero-waves { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 60%; z-index: 1; }
-.hero::after {
-  content: ""; position: absolute; inset: auto 0 0 0; height: 56px; z-index: 0; pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .035));
-}
 
 /* ---------- About ---------- */
-.about { position: relative; overflow: hidden; background: var(--about-bg); padding: clamp(96px, 9vw, 130px) 0 clamp(88px, 9vw, 124px); }
+.about { position: relative; background: var(--about-bg); padding: clamp(96px, 9vw, 130px) 0 clamp(88px, 9vw, 124px); }
 .about-inner { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: clamp(32px, 6vw, 96px); align-items: start; max-width: 1000px; }
 .about-title { padding-top: 4px; text-transform: uppercase; letter-spacing: .06em; justify-self: end; }
 .about-copy { max-width: 56ch; display: grid; gap: 1em; font-size: 17.5px; }
-.about-copy p:first-child { font-size: 20px; line-height: 1.5; }
-.about-waves { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+/* The lighthouse beam's canvas reaches up past the top of About so its light drifts softly
+   into the bottom of the hero, fading out with no visible edge. */
+.about-waves {
+  position: absolute; left: 0; right: 0; top: calc(-1 * var(--beam-bleed)); width: 100%; height: calc(100% + var(--beam-bleed));
+  z-index: 1; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--beam-bleed));
+          mask-image: linear-gradient(to bottom, transparent, #000 var(--beam-bleed));
+}
 
 /* ---------- Glass surfaces (Why card, plans, contact form) ---------- */
 .glass {
@@ -293,6 +324,30 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .contact-intro p { margin-top: 22px; color: var(--ink-soft); max-width: 40ch; }
 .contact-intro .contact-email { margin-top: 28px; color: var(--ink); font-size: 18px; }
 .contact-panel { padding: clamp(28px, 3.4vw, 46px); }
+/* The form card flips the page colors so it stands out: a dark card with light text and a light
+   Send button in light mode, and a light card with dark text and a dark Send button in dark mode.
+   Everything inside reads its colors from these local values. */
+.glass.contact-panel {
+  --ink: var(--featured-ink);
+  --ink-soft: var(--featured-ink-soft);
+  --field-line: var(--panel-field-line);
+  --btn-bg: var(--send-bg);
+  --btn-ink: var(--send-ink);
+  --error: var(--panel-error);
+  --success: var(--panel-success);
+  background: var(--featured-bg);
+  color: var(--ink);
+}
+.contact-panel ::selection { background: var(--ink); color: var(--featured-bg); }
+/* Keep browser autofill from painting the fields a mismatched color. */
+.contact-panel input:-webkit-autofill,
+.contact-panel textarea:-webkit-autofill,
+.contact-panel select:-webkit-autofill {
+  -webkit-text-fill-color: var(--ink);
+  box-shadow: 0 0 0 1000px var(--featured-bg) inset;
+  caret-color: var(--ink);
+  transition: background-color 9999s ease 0s;
+}
 .contact-form { display: grid; gap: 22px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
 .field label { display: block; font-size: 14px; font-weight: 600; letter-spacing: .02em; margin-bottom: 6px; }
@@ -315,7 +370,12 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .field-error { margin-top: 6px; font-size: 14px; color: var(--error); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .form-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 4px; }
-.form-actions .btn { min-width: 200px; }
+.form-actions .btn { min-width: 200px; transition: transform .2s ease, background-color .3s ease, color .3s ease, border-color .3s ease, box-shadow .35s ease; }
+/* Send lights up on hover with a soft halo, like the theme toggle. */
+.contact-panel .form-actions .btn:focus-visible { background: var(--send-hover-bg); color: var(--send-hover-ink); box-shadow: 0 0 16px 4px var(--send-glow); }
+@media (hover: hover) {
+  .contact-panel .form-actions .btn:hover { background: var(--send-hover-bg); color: var(--send-hover-ink); box-shadow: 0 0 16px 4px var(--send-glow); }
+}
 .form-actions .btn[aria-busy="true"] { opacity: .7; cursor: progress; }
 .form-status { font-size: 15px; }
 .form-status.is-error { color: var(--error); }
@@ -325,7 +385,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--footer-bg); color: var(--footer-ink); padding: clamp(56px, 7vw, 88px) 0 40px; transition: background-color .5s ease; }
-.footer-inner { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "brand line nav" "brand email copy"; gap: 18px 48px; align-items: center; }
+.footer-inner { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "brand line nav" "brand email ."; gap: 18px 48px; align-items: center; }
 .footer-brand { grid-area: brand; display: flex; align-items: center; gap: 22px; }
 .footer-mark { height: 76px; width: auto; aspect-ratio: 702.5 / 858.2; }
 .footer-lockup { display: grid; gap: 10px; justify-items: start; }
@@ -336,24 +396,49 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 .footer-nav a { text-decoration: none; }
 .footer-nav a:hover { text-decoration: underline; }
 .footer-email { grid-area: email; }
-.footer-copy { grid-area: copy; color: var(--footer-ink-soft); font-size: 14px; justify-self: end; }
-
-/* ---------- Theme toggle (sticky, bottom-left) ---------- */
-/* Dim at rest, lights up on hover, flips like a coin when clicked (the flip side shows the current mode). */
-.theme-toggle {
-  position: fixed; left: clamp(14px, 2.4vw, 32px); bottom: calc(clamp(14px, 2.4vw, 32px) + env(safe-area-inset-bottom, 0px)); z-index: 40;
-  width: 40px; height: 40px; padding: 5px; border-radius: 50%;
-  border: 0; cursor: pointer; color: var(--ink); background: var(--bg);
-  opacity: .45; perspective: 240px;
-  transition: opacity .35s ease, box-shadow .35s ease, background-color .5s ease, color .5s ease;
+/* Bottom bar: copyright and legal links */
+.footer-legal {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 28px;
+  margin-top: clamp(36px, 4vw, 52px); padding-top: 22px; border-top: 1px solid rgba(233, 245, 251, .14);
+  color: var(--footer-ink-soft); font-size: 14px;
 }
-.theme-toggle svg { width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.45, .05, .25, 1); }
+.footer-legal a { text-decoration: none; }
+.footer-legal a:hover { color: var(--footer-ink); text-decoration: underline; }
+
+/* ---------- Theme toggle (in the header, after Contact) ---------- */
+/* Slightly soft at rest, full strength with a glow on hover, flips like a coin when clicked (the flip side shows the current mode). */
+.theme-toggle {
+  flex: none; width: 38px; height: 38px; padding: 7px; border-radius: 50%;
+  border: 0; cursor: pointer; color: var(--ink); background: transparent;
+  opacity: .8; perspective: 240px;
+  transition: opacity .35s ease, color .5s ease;
+}
+/* The glow hugs the icon itself rather than the larger tap area around it. */
+.theme-toggle svg { width: 100%; height: 100%; border-radius: 50%; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.45, .05, .25, 1), box-shadow .35s ease; }
 :root[data-theme="dark"] .theme-toggle svg { transform: rotateY(180deg); }
-.theme-toggle:focus-visible { opacity: 1; box-shadow: 0 0 14px 3px var(--toggle-glow); }
+.theme-toggle:focus-visible { opacity: 1; outline: none; }
+.theme-toggle:focus-visible svg { box-shadow: 0 0 8px 1px var(--toggle-glow); }
 @media (hover: hover) {
-  .theme-toggle:hover { opacity: 1; box-shadow: 0 0 14px 3px var(--toggle-glow); }
+  .theme-toggle:hover { opacity: 1; }
+  .theme-toggle:hover svg { box-shadow: 0 0 8px 1px var(--toggle-glow); }
 }
 .theme-toggle:active { opacity: 1; }
+
+/* ---------- Privacy policy page ---------- */
+.legal { padding: clamp(56px, 7vw, 100px) 0 clamp(80px, 9vw, 130px); }
+.legal-inner { max-width: 760px; }
+.legal-updated { margin-top: 14px; color: var(--ink-soft); font-size: 15px; }
+.legal-intro { margin-top: 28px; }
+.legal-summary { margin-top: 36px; padding: clamp(22px, 3vw, 30px) clamp(22px, 3.4vw, 34px); border: 1px solid var(--hairline); border-radius: 24px; }
+.legal h2 { margin: clamp(44px, 5vw, 60px) 0 14px; font-family: var(--font-display); font-size: clamp(28px, 3vw, 38px); line-height: 1.15; letter-spacing: .01em; }
+.legal h3 { margin: 26px 0 6px; font-family: var(--font-body); font-weight: 600; font-size: 17px; }
+.legal p + p { margin-top: 14px; }
+.legal ul { margin-top: 12px; display: grid; gap: 8px; }
+.legal ul + p { margin-top: 14px; }
+.legal li { position: relative; padding-left: 26px; }
+.legal li::before { content: ""; position: absolute; left: 4px; top: .78em; width: 10px; height: 1px; background: currentColor; opacity: .6; }
+.legal a { text-decoration: underline; }
+.legal .legal-summary h2 { margin-top: 0; font-size: clamp(24px, 2.4vw, 30px); }
 
 /* ---------- Tablet ---------- */
 @media (max-width: 1080px) {
@@ -362,8 +447,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
   .why-item:nth-child(3) { border-left: 0; }
   .plans { grid-template-columns: 1fr; padding: 10px; max-width: 620px; }
   .plan-featured { margin: 0 -10px; padding-top: calc(clamp(28px, 3vw, 44px) + 34px); padding-bottom: clamp(28px, 3vw, 44px); }
-  .footer-inner { grid-template-columns: 1fr; grid-template-areas: "brand" "line" "nav" "email" "copy"; }
-  .footer-copy { justify-self: start; }
+  .footer-inner { grid-template-columns: 1fr; grid-template-areas: "brand" "line" "nav" "email"; }
 }
 
 /* ---------- Mobile ---------- */
@@ -371,20 +455,20 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
   :root { --header-h: 72px; --radius-glass: 30px; }
   body { font-size: 16.5px; }
   .brand-mark { height: 46px; }
+  .theme-toggle { order: 1; margin-left: auto; width: 40px; height: 40px; padding: 8px; }
   .nav-toggle {
-    display: inline-grid; place-items: center; width: 48px; height: 48px; margin-left: auto;
+    order: 2; display: inline-grid; place-items: center; width: 48px; height: 48px; margin-left: -12px;
     border: 0; background: transparent; color: var(--ink); cursor: pointer; border-radius: 50%;
   }
-  .nav-toggle-lines, .nav-toggle-lines::before, .nav-toggle-lines::after {
-    display: block; width: 24px; height: 1.5px; background: currentColor; border-radius: 2px; position: relative;
-    transition: transform .35s ease, opacity .25s ease;
+  /* Menu icon: two waves that flatten and cross into an X when the menu opens. */
+  .nav-waves { width: 30px; height: 20px; overflow: visible; }
+  .nav-wave {
+    fill: none; stroke: currentColor; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke;
+    transform-box: view-box; transform-origin: 15px 10px;
+    transition: transform .4s cubic-bezier(.45, .05, .25, 1);
   }
-  .nav-toggle-lines::before, .nav-toggle-lines::after { content: ""; position: absolute; left: 0; }
-  .nav-toggle-lines::before { top: -7px; }
-  .nav-toggle-lines::after { top: 7px; }
-  .nav-toggle[aria-expanded="true"] .nav-toggle-lines { background: transparent; }
-  .nav-toggle[aria-expanded="true"] .nav-toggle-lines::before { transform: translateY(7px) rotate(45deg); }
-  .nav-toggle[aria-expanded="true"] .nav-toggle-lines::after { transform: translateY(-7px) rotate(-45deg); }
+  .nav-toggle[aria-expanded="true"] .nav-wave--top { transform: rotate(45deg) scale(.8, .01); }
+  .nav-toggle[aria-expanded="true"] .nav-wave--bottom { transform: rotate(-45deg) scale(.8, .01); }
 
   .site-nav {
     position: absolute; left: 0; right: 0; top: var(--header-h);
@@ -409,7 +493,8 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 
   .about-inner { grid-template-columns: 1fr; gap: 20px; }
   .about-title { justify-self: start; }
-  .about { padding: 64px 0 132px; }
+  .about { padding: 64px 0 72px; }
+  :root { --beam-bleed: 150px; }
 
   .why-card { padding-inline: 14px; }
   .why-grid { grid-template-columns: 1fr 1fr; row-gap: 30px; }
@@ -430,7 +515,6 @@ section[id] { scroll-margin-top: calc(var(--header-h) - 1px); }
 
   .footer-word { width: 200px; }
   .footer-nav { flex-wrap: wrap; gap: 14px 24px; }
-  .theme-toggle { width: 36px; height: 36px; padding: 4px; }
 }
 
 @media (max-width: 600px) {

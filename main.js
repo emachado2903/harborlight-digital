@@ -32,6 +32,52 @@
   if (systemDark.addEventListener) systemDark.addEventListener('change', onSystemChange);
   else if (systemDark.addListener) systemDark.addListener(onSystemChange);
 
+  /* ---------- Pages open at the top ---------- */
+  // Arriving from a link (like the logo on the privacy page, or the privacy link at the bottom of
+  // the home page), a page should start at its top. Browsers usually do this anyway, but some (and
+  // some embedded previews) carry the old scroll position over or restore it a moment after the
+  // page loads. So: jump to the top now, and for the first moments after loading, undo any scroll
+  // the visitor didn't make themselves. Links to a section (like /#faq) and the back button are
+  // left alone, so going back still returns you to where you were.
+  function jumpToTop() {
+    try { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, 0); }
+  }
+  function navigationType() {
+    try {
+      var nav = performance.getEntriesByType('navigation')[0];
+      if (nav && nav.type) return nav.type;
+    } catch (e) {}
+    return (performance.navigation && performance.navigation.type === 2) ? 'back_forward' : 'navigate';
+  }
+  var alwaysTop = !!(document.body && document.body.hasAttribute('data-open-at-top'));   // the privacy page
+  if (alwaysTop && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (!location.hash && (alwaysTop || navigationType() !== 'back_forward')) {
+    var visitorScrolled = false, holdTopUntil = Date.now() + 2000;
+    var markVisitor = function () { visitorScrolled = true; };
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (type) {
+      window.addEventListener(type, markVisitor, { passive: true, once: true });
+    });
+    var holdTop = function () {
+      if (!visitorScrolled && Date.now() < holdTopUntil && window.pageYOffset > 0) jumpToTop();
+    };
+    jumpToTop();
+    window.addEventListener('scroll', holdTop, { passive: true });
+    window.addEventListener('load', function () {
+      holdTopUntil = Date.now() + 1500;   // count from when the page has fully loaded
+      holdTop();
+      setTimeout(holdTop, 60); setTimeout(holdTop, 250); setTimeout(holdTop, 700);
+    });
+  }
+  if (alwaysTop) window.addEventListener('pageshow', function (e) { if (e.persisted) jumpToTop(); });
+  // "#top" links (like Privacy Policy in this page's own footer) glide back to the very top.
+  // The header is sticky, so the browser alone wouldn't move for them.
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href="#top"]');
+    if (!link) return;
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
   /* ---------- Header and mobile menu ---------- */
   var header = document.querySelector('.site-header');
   var navToggle = document.querySelector('.nav-toggle');
@@ -59,18 +105,34 @@
 
   // Underline the nav link for the section in view.
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('.site-nav ul a'));
+  function setCurrent(hash) {
+    navLinks.forEach(function (a) {
+      if (a.getAttribute('href') === hash) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  // After clicking a link on the page, jump the underline straight to the destination
+  // and hold it there while the page scrolls, so it doesn't flicker across every
+  // section on the way.
+  var holdUntil = 0;
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href^="#"]');
+    if (!link || link.getAttribute('href').length < 2) return;
+    setCurrent(link.getAttribute('href'));
+    holdUntil = Date.now() + 1500;
+  });
+  window.addEventListener('scrollend', function () { holdUntil = 0; });
   if ('IntersectionObserver' in window && navLinks.length) {
     var sectionObserver = new IntersectionObserver(function (entries) {
+      if (Date.now() < holdUntil) return;
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        navLinks.forEach(function (a) {
-          if (a.getAttribute('href') === '#' + entry.target.id) a.setAttribute('aria-current', 'true');
-          else a.removeAttribute('aria-current');
-        });
+        if (entry.isIntersecting) setCurrent('#' + entry.target.id);
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
     navLinks.forEach(function (a) {
-      var target = document.querySelector(a.getAttribute('href'));
+      var href = a.getAttribute('href');
+      if (href.charAt(0) !== '#') return;   // e.g. "/#about" on the privacy page
+      var target = document.querySelector(href);
       if (target) sectionObserver.observe(target);
     });
   }

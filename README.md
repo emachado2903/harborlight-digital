@@ -9,6 +9,7 @@ Every file sits at the top level, with no subfolders, so the whole site uploads 
 | File | What it is |
 | --- | --- |
 | `index.html` | The whole page. Logo artwork is embedded at the top as an SVG sprite. |
+| `privacy.html` | The Privacy Policy, linked from the bottom of the footer. It repeats the header and footer from `index.html`, so if you change those, change them here too. |
 | `styles.css` | All styling. Light and dark colors are the tokens at the top of the file. |
 | `waves.js` | The animated waves and glint. Settings are at the top of the file. |
 | `main.js` | Light/dark toggle, mobile menu, plan buttons, contact form. |
@@ -20,7 +21,7 @@ Every file sits at the top level, with no subfolders, so the whole site uploads 
 ## Put it on GitHub Pages
 
 1. On GitHub, create a new **public** repository, for example `harborlight-digital`.
-2. Click **Add file → Upload files**, select all 22 files, and drag them in. Commit.
+2. Click **Add file → Upload files**, select all 23 files, and drag them in. Commit.
 3. Go to **Settings → Pages**. Under *Build and deployment*, choose **Deploy from a branch**, branch **main**, folder **/ (root)**, then **Save**.
 4. Still on that page, check that **Custom domain** says `harborlightdigital.co` (the `CNAME` file fills it in). If it's empty, type it and save.
 
@@ -58,6 +59,7 @@ The addresses above are GitHub's published Pages IPs; if anything doesn't connec
 
 - **One-line wordmark.** Your mockup set "HARBORLIGHT DIGITAL" on one line in Tan Mon Cheri. The logo file only contains HARBORLIGHT in that font (no D), so the hero uses your logo lockup for now. Export the one-line version from Canva as SVG and it can be swapped into the `hero-word` spot.
 - **Policy text in the FAQ** (deposit, $50 small updates, $75/hour) is a starting draft. Edit it in `index.html` under `<!-- FAQ -->`.
+- **Privacy Policy** (`privacy.html`) promises a reply to data requests within 30 days and lists Formspree, Zoho Mail and GitHub Pages as the services that handle visitor information. If you add analytics, a new form tool or anything that tracks visitors, update the policy and its "Last updated" date.
 - **Why Harborlight icons** are simple placeholders. Replace the four `<svg>` blocks inside `.why-icon` with your own drawings.
 
 ## Wave settings (`waves.js`, top of file)
@@ -67,9 +69,11 @@ The addresses above are GitHub's published Pages IPs; if anything doesn't connec
 | `RESPECT_REDUCED_MOTION` | `false` | `true` holds the waves still for visitors whose device asks for less motion. |
 | `MOBILE_MOTION_MS` | `60000` | On phones the waves move for 1 minute, then settle while the glint keeps traveling. Scrolling wakes them for another minute. |
 | `WAVE_SPEED` | `1` | Overall wave speed. |
-| `GLINT_PERIOD` | `13` | Seconds for a glint to cross the hero wave. |
 | `HERO_STRANDS` | `7` | Number of lines in the hero ribbon. |
-| `RIBBON_SPACING` | `6` | Space between the lines of the About ribbon, in pixels. |
+| `BEAM_PERIOD` | `8` | Seconds for one full turn of the lighthouse beam behind the About section. The glint on the hero wave is timed to it, like the lighthouse reflecting on the water. |
+| `RIBBON_SPACING` | `6` | Space between the lines of the old About ribbon, in pixels (only used if you switch back to it, see below). |
+
+The About background is a lighthouse beam turning in fog. To switch back to the twisting line ribbon, change `data-wave="beacon" data-res="0.25"` to `data-wave="about"` on the About `<canvas>` in `index.html`. The beam's color and strength for each mode are `--beam-rgb` and `--beam-strength` at the top of `styles.css`.
 
 ## Preview on your computer
 

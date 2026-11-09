@@ -1,7 +1,7 @@
 /* Harborlight Digital: living line-waves.
    Thin lines drift like a soft harbor swell while a glint of light rides along them.
-   Three wave fields share one animation loop: the hero ribbon, the About ribbon, and the Why contours.
-   Each field only draws while it's on screen. */
+   Three fields share one animation loop: the hero ribbon, the lighthouse beam behind About,
+   and the Why contours. Each field only draws while it's on screen. */
 (function () {
   'use strict';
 
@@ -9,7 +9,7 @@
   var RESPECT_REDUCED_MOTION = false; // true = hold everything still for visitors whose device asks for less motion
   var MOBILE_MOTION_MS = 60000;       // phones: waves move for 1 minute, then settle; scrolling wakes them again
   var WAVE_SPEED = 1;                 // overall wave speed (0.5 = half speed, 2 = double)
-  var GLINT_PERIOD = 13;              // seconds for a glint to travel the full hero wave
+  var BEAM_PERIOD = 8;                // seconds for one full turn of the lighthouse; the hero glint is its reflection
   var HERO_STRANDS = 7;               // number of lines in the hero ribbon
 
   var TAU = Math.PI * 2;
@@ -29,6 +29,8 @@
     colors.glintStrength = parseFloat(cs.getPropertyValue('--wave-glint-strength')) || 1;
     colors.blend = cs.getPropertyValue('--wave-glint-blend').trim() || 'source-over';
     colors.contour = parseFloat(cs.getPropertyValue('--contour-alpha')) || 0.5;
+    colors.beam = cs.getPropertyValue('--beam-rgb').trim() || '255, 250, 236';
+    colors.beamStrength = parseFloat(cs.getPropertyValue('--beam-strength')) || 0.8;
   }
 
   /* ---------- Geometry helpers ---------- */
@@ -127,11 +129,16 @@
   }
   Field.prototype.resize = function () {
     var r = this.canvas.getBoundingClientRect();
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // data-res draws a field at a fraction of screen resolution; the browser's smooth
+    // upscaling softens it (used for the foggy lighthouse beam).
+    var dpr = parseFloat(this.canvas.getAttribute('data-res')) || Math.min(window.devicePixelRatio || 1, 2);
     this.w = r.width; this.h = r.height;
     this.canvas.width = Math.max(1, Math.round(r.width * dpr));
     this.canvas.height = Math.max(1, Math.round(r.height * dpr));
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // How far the canvas starts above its section (the beam canvas reaches up into the hero).
+    var pr = this.canvas.parentElement ? this.canvas.parentElement.getBoundingClientRect() : r;
+    this.canvas.__top = Math.max(0, pr.top - r.top);
   };
   Field.prototype.render = function () {
     if (this.w < 2 || this.h < 2) return;
@@ -181,10 +188,17 @@
       }
       strokeLine(ctx, pts, 1, colors.alpha);
       var cum = arcLengths(pts), L = cum[cum.length - 1];
-      var half = Math.max(70, L * 0.075);
-      for (var gi = 0; gi < 2; gi++) {
-        var phase = (g / GLINT_PERIOD + gi * 0.5 + s * 0.006) % 1;
-        drawGlint(ctx, pts, cum, (phase * 1.3 - 0.15) * L, half, gi === 0 ? 1 : 0.6);
+      // The glint is the lighthouse's reflection on the water (see the beam behind About):
+      // it brightens as the beam turns toward the visitor, rides left to right as the beam
+      // sweeps across, and fades out while the beam points away.
+      var turnU = g / BEAM_PERIOD - Math.floor(g / BEAM_PERIOD);   // 0 = beam facing the visitor
+      var r = (turnU + 0.15) % 1;                                     // reflection window starts just before the flash
+      if (r < 0.65) {
+        var env = smoothstep(0, 0.15, r) * (1 - smoothstep(0.3, 0.65, r));
+        var flashy = 1 - smoothstep(0.1, 0.35, Math.abs(r - 0.15));  // widest right at the flash
+        var progress = (r + s * 0.006) / 0.65;
+        var half = Math.max(70, L * 0.075) * (1 + 0.7 * flashy);
+        drawGlint(ctx, pts, cum, (progress * 1.3 - 0.15) * L, half, env);
       }
     }
   }
@@ -205,7 +219,6 @@
       return { l: r.left - cb.left, r: r.right - cb.left, t: r.top - cb.top, b: r.bottom - cb.top };
     }
     var T = rel(title), C = rel(copy);
-    var stripTop = C.b + 24 + RIBBON_SPACING * 2, stripH = h - stripTop;   // open space under the text
     var style = { strands: 9, spacing: RIBBON_SPACING, wob: 1.4, twists: 1.3, sway: 5, alpha: 0.72 };
     function ribbon(clip, ctrl) { return { strands: style.strands, spacing: style.spacing, wob: style.wob, twists: style.twists, sway: style.sway, alpha: style.alpha, clip: clip, ctrl: ctrl }; }
 
@@ -218,13 +231,8 @@
         [0.62 * WL, 0.76 * h], [0.8 * WL, 0.92 * h], [0.98 * WL, h + 30]
       ])];
     }
-    // Stacked (phones) or no left margin: the ribbon enters from the left under the text.
-    if (stripH >= 60) {
-      return [ribbon([[0, C.b + 6, w, h - C.b - 6]], [
-        [-30, stripTop + 0.12 * stripH], [0.14 * w, stripTop + 0.24 * stripH], [0.3 * w, stripTop + 0.48 * stripH],
-        [0.42 * w, stripTop + 0.8 * stripH], [0.52 * w, h + 30]
-      ])];
-    }
+    // Stacked (phones, narrow windows): no ribbon. Under the text it read more like a
+    // DNA strand than a wave, so the section stays clean there.
     return [];
   }
 
@@ -309,9 +317,124 @@
     }
   }
 
+  /* ---------- About: lighthouse beam in fog ---------- */
+  // A lighthouse just off the left edge turns on a fixed axis. From where the visitor
+  // stands, its beam sweeps across the section, swings away into the dark, then turns
+  // to face them in a soft flash, all seen through slowly drifting fog.
+
+  // Fog puffs in a unit box: x, y, radius, drift speed (box widths per second).
+  var FOG_PUFFS = [
+    [0.05, 0.30, 0.34, 0.010], [0.32, 0.70, 0.30, 0.007], [0.55, 0.25, 0.38, 0.012],
+    [0.80, 0.62, 0.32, 0.008], [1.05, 0.40, 0.36, 0.011], [0.20, 0.95, 0.28, 0.009],
+    [0.70, 0.05, 0.30, 0.006], [0.95, 0.90, 0.26, 0.010]
+  ];
+  var fogCanvas = null, fogCtx = null;
+
+  function fogMap(g) {
+    if (!fogCanvas) {
+      fogCanvas = document.createElement('canvas');
+      fogCanvas.width = 96; fogCanvas.height = 48;
+      fogCtx = fogCanvas.getContext('2d');
+    }
+    var W = fogCanvas.width, H = fogCanvas.height;
+    fogCtx.clearRect(0, 0, W, H);
+    fogCtx.fillStyle = 'rgba(0,0,0,0.55)';           // thin fog everywhere
+    fogCtx.fillRect(0, 0, W, H);
+    for (var i = 0; i < FOG_PUFFS.length; i++) {      // thicker banks drifting through
+      var P = FOG_PUFFS[i];
+      var x = (((P[0] + g * P[3]) % 1.5) + 1.5) % 1.5 - 0.25;
+      var cx = x * W, cy = P[1] * H, r = P[2] * W;
+      var grad = fogCtx.createRadialGradient(cx, cy, 0, cx, cy, r);
+      grad.addColorStop(0, 'rgba(0,0,0,0.6)');
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      fogCtx.fillStyle = grad;
+      fogCtx.fillRect(cx - r, cy - r, 2 * r, 2 * r);
+    }
+    return fogCanvas;
+  }
+
+  function glow(ctx, x, y, r, rgb, a) {
+    if (a <= 0.002 || r <= 1) return;
+    var grad = ctx.createRadialGradient(x, y, 0, x, y, r);
+    grad.addColorStop(0, 'rgba(' + rgb + ',' + a + ')');
+    grad.addColorStop(0.35, 'rgba(' + rgb + ',' + (a * 0.45) + ')');
+    grad.addColorStop(1, 'rgba(' + rgb + ',0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(x - r, y - r, 2 * r, 2 * r);
+  }
+
+  function beaconPainter(ctx, w, h, t, g, canvas) {
+    var stacked = w < 700;
+    // The canvas starts above the About section; place everything relative to the section.
+    var top = canvas.__top || 0, H = h - top;
+    var rgb = colors.beam, S = colors.beamStrength;
+
+    // A simple 3D model seen through a camera: the lamp sits at depth Z0, the beam turns
+    // around it, and each point along the beam is projected onto the screen. As the beam
+    // turns toward the visitor its far end swings closer, so it widens into a flood of light.
+    var cx = w / 2, cy = top + H / 2, F = w * (stacked ? 1.1 : 0.8);
+    var lsx = stacked ? -0.14 * w : -0.05 * w;     // lamp position on screen (just off the left edge)
+    var lsy = top + (stacked ? 0.12 : 0.3) * H;
+    var Z0 = 10, X0 = (lsx - cx) * Z0 / F, Y0 = (lsy - cy) * Z0 / F;
+
+    var turn = TAU * g / BEAM_PERIOD;
+    var dx = Math.sin(turn), dz = -Math.cos(turn); // dz < 0: turning toward the visitor
+    var toward = 0.5 - 0.5 * dz;                   // 0 = facing away, 1 = facing the visitor
+    var f = Math.max(0, -dz);
+
+    // The lantern, always faintly there, and its glare as the beam faces the visitor.
+    glow(ctx, lsx, lsy, (stacked ? 0.3 : 0.26) * H, rgb, 0.45 * S);
+    var flash = Math.pow(f, 6);
+    glow(ctx, lsx, lsy, Math.max(w, H) * (0.35 + 0.9 * f * f), rgb, S * (0.06 + 0.8 * flash));
+
+    // Sample the beam from the lamp outward.
+    var N = 28, SMAX = 34, FOGLEN = 9, ZNEAR = 1.4;
+    var xs = [], ys = [], hws = [], als = [];
+    for (var i = 0; i <= N; i++) {
+      var sd = SMAX * i / N;
+      var Z = Z0 + sd * dz;
+      if (Z < ZNEAR) break;
+      var X = X0 + sd * dx;
+      xs.push(cx + F * X / Z);
+      ys.push(cy + F * Y0 / Z);
+      hws.push(F * (0.25 + 0.12 * sd) / Z);
+      // fades with distance in the fog, and fades out before the near clip so it never ends in a hard edge
+      als.push(Math.exp(-sd / FOGLEN) * smoothstep(ZNEAR, ZNEAR + 4, Z));
+    }
+    var n = xs.length;
+    if (n > 2) {
+      var ex = xs[n - 1], ey = ys[n - 1];
+      var total = Math.sqrt((ex - xs[0]) * (ex - xs[0]) + (ey - ys[0]) * (ey - ys[0])) || 1;
+      var A = S * (0.4 + 0.5 * toward);
+      // Nested layers build a soft, rounded cross-section with no visible edges.
+      var layers = [1, 0.95, 0.88, 0.8, 0.7, 0.58, 0.45, 0.3];
+      for (var k = 0; k < layers.length; k++) {
+        var grad = ctx.createLinearGradient(xs[0], ys[0], ex, ey);
+        for (var q = 0; q < n; q++) {
+          var u = Math.sqrt((xs[q] - xs[0]) * (xs[q] - xs[0]) + (ys[q] - ys[0]) * (ys[q] - ys[0])) / total;
+          grad.addColorStop(Math.min(1, u), 'rgba(' + rgb + ',' + (A * als[q] / layers.length).toFixed(4) + ')');
+        }
+        grad.addColorStop(1, 'rgba(' + rgb + ',0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(xs[0], ys[0] - hws[0] * layers[k]);
+        for (var a = 1; a < n; a++) ctx.lineTo(xs[a], ys[a] - hws[a] * layers[k]);
+        for (var b = n - 1; b >= 0; b--) ctx.lineTo(xs[b], ys[b] + hws[b] * layers[k]);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    // Light only shows where the fog catches it.
+    ctx.globalCompositeOperation = 'destination-in';
+    ctx.drawImage(fogMap(g), 0, 0, w, h);
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
   var PAINTERS = {
     'hero': heroPainter,
-    'about': aboutPainter,
+    'about': aboutPainter,       // the twisting ribbon (not used while the beam is on)
+    'beacon': beaconPainter,
     'contours': contourPainter
   };
 

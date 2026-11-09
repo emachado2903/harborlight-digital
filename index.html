@@ -60,12 +60,18 @@
 <header class="site-header" id="top">
   <div class="wrap header-inner">
     <a class="brand" href="#top" aria-label="Harborlight Digital, back to top">
-      <svg class="brand-mark" viewBox="0 0 702.5 858.2" aria-hidden="true"><use href="#hl-mark" width="702.5" height="858.2"/></svg>
+      <span class="brand-flip" aria-hidden="true">
+        <svg class="brand-mark" viewBox="0 0 702.5 858.2"><use href="#hl-mark" width="702.5" height="858.2"/></svg>
+        <svg class="brand-mark brand-mark--back" viewBox="0 0 702.5 858.2"><use href="#hl-mark" width="702.5" height="858.2"/></svg>
+      </span>
     </a>
 
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
       <span class="sr-only">Menu</span>
-      <span class="nav-toggle-lines" aria-hidden="true"></span>
+      <svg class="nav-waves" viewBox="0 0 30 20" aria-hidden="true">
+        <path class="nav-wave nav-wave--top" d="M1 7.25C3.5 5.45 5.8 4.45 8.6 4.45C12.5 4.45 16 6.95 20.2 6.95C24 6.95 26.5 5.45 29 4.45"/>
+        <path class="nav-wave nav-wave--bottom" d="M1 15.75C3.5 13.95 5.8 12.95 8.6 12.95C12.5 12.95 16 15.45 20.2 15.45C24 15.45 26.5 13.95 29 12.95"/>
+      </svg>
     </button>
 
     <nav class="site-nav" id="site-nav" aria-label="Main">
@@ -78,6 +84,13 @@
       </ul>
       <a class="btn btn-solid nav-cta" href="#contact">Contact</a>
     </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="3"/>
+        <path d="M20 5a15 15 0 0 1 0 30z" fill="currentColor"/>
+      </svg>
+    </button>
   </div>
 </header>
 
@@ -99,12 +112,12 @@
 
   <!-- ABOUT -->
   <section class="about" id="about" aria-labelledby="about-title">
-    <canvas class="wave-canvas about-waves" data-wave="about" aria-hidden="true"></canvas>
+    <canvas class="wave-canvas about-waves" data-wave="beacon" data-res="0.25" aria-hidden="true"></canvas>
     <div class="wrap about-inner">
       <h2 id="about-title" class="display about-title">About</h2>
       <div class="about-copy">
         <p>Harborlight Digital designs custom websites for small businesses in San Antonio and Austin.</p>
-        <p>We started with something we kept noticing: some of the best local businesses are the hardest to find online. Their work speaks for itself in person, but customers searching from their phones never see it, and they end up with whoever does show up.</p>
+        <p>We started with something we kept noticing. Some of the best local businesses are the hardest to find online. Their work speaks for itself in person, but customers searching from their phones never see it, and they end up with whoever does show up.</p>
         <p>So every site we make is designed around the business it belongs to, written in its own voice, and built to be found. Like a harbor light, it doesn't need to shout. It only has to guide the right people to your door.</p>
       </div>
     </div>
@@ -208,7 +221,7 @@
             <li>Custom design, unlimited pages</li>
             <li>SEO setup</li>
             <li>On-site photography session</li>
-            <li>Ongoing support</li>
+            <li>Support throughout your build</li>
           </ul>
           <a class="btn btn-line plan-cta" href="#contact" data-package="Custom">Request a quote</a>
         </article>
@@ -241,7 +254,7 @@
         </details>
         <details>
           <summary>What do you build websites with?</summary>
-          <div class="faq-answer"><p>Most sites are hand-coded, which keeps them fast and secure with nothing to patch or update. If you'd rather make edits yourself, we can build on Wix instead, priced at the Business tier.</p></div>
+          <div class="faq-answer"><p>Every site is custom-built for your business from the ground up, not dropped into a template, so it stays fast, secure, and easy to keep running. If you'd rather make edits yourself, we can build on Wix instead, priced at the Business tier.</p></div>
         </details>
         <details>
           <summary>How does payment work?</summary>
@@ -249,11 +262,11 @@
         </details>
         <details>
           <summary>What happens after launch?</summary>
-          <div class="faq-answer"><p>Custom plans include ongoing support. For Starter and Business sites, help is there whenever you need it: $50 for a small update, and larger changes at $75 an hour, quoted before we start. There's no subscription.</p></div>
+          <div class="faq-answer"><p>Custom plans include support for the whole time your site is being built. Once it's live, help is there whenever you need it, on any plan: $50 for a small update, and larger changes at $75 an hour, quoted before we start. There's no subscription.</p></div>
         </details>
         <details>
           <summary>Do I own my website?</summary>
-          <div class="faq-answer"><p>Yes. Your domain is registered in your name and your content is yours. If you ever move on, we'll hand over everything you need.</p></div>
+          <div class="faq-answer"><p>Yes. Your domain is registered in your name and your content is yours. Once your final payment is in and your site goes live, we'll hand over everything you need.</p></div>
         </details>
         <details>
           <summary>Do you offer photography?</summary>
@@ -261,7 +274,7 @@
         </details>
         <details>
           <summary>Do you work outside San Antonio and Austin?</summary>
-          <div class="faq-answer"><p>Our focus is San Antonio and Austin, and we're glad to talk about projects elsewhere. On-site photography stays within those two areas.</p></div>
+          <div class="faq-answer"><p>Our focus is San Antonio and Austin, and we're glad to talk about projects elsewhere.</p></div>
         </details>
       </div>
     </div>
@@ -284,7 +297,7 @@
           <div class="field-row">
             <div class="field">
               <label for="f-name">Name</label>
-              <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Jordan Reyes">
+              <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Your name">
               <p class="field-error" id="err-name" hidden>Enter your name.</p>
             </div>
             <div class="field">
@@ -297,7 +310,7 @@
           <div class="field-row">
             <div class="field">
               <label for="f-business">Business name <span class="optional">(optional)</span></label>
-              <input id="f-business" name="business" type="text" autocomplete="organization" placeholder="Reyes Plumbing Co.">
+              <input id="f-business" name="business" type="text" autocomplete="organization" placeholder="Your business name">
             </div>
             <div class="field">
               <label for="f-package">Package of interest</label>
@@ -346,16 +359,12 @@
       <a href="#contact">Contact</a>
     </nav>
     <p class="footer-email"><a href="mailto:hello@harborlightdigital.co">hello@harborlightdigital.co</a></p>
+  </div>
+  <div class="wrap footer-legal">
     <p class="footer-copy">&copy; <span id="year">2026</span> Harborlight Digital</p>
+    <a href="privacy.html">Privacy Policy</a>
   </div>
 </footer>
-
-<button class="theme-toggle" type="button" aria-label="Switch to dark mode">
-  <svg viewBox="0 0 40 40" aria-hidden="true">
-    <circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="3"/>
-    <path d="M20 5a15 15 0 0 1 0 30z" fill="currentColor"/>
-  </svg>
-</button>
 
 <script src="waves.js" defer></script>
 <script src="main.js" defer></script>
